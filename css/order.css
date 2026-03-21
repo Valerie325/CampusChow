@@ -1,0 +1,161 @@
+
+/* order.css */
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f7f7f7;
+  color: #333;
+}
+
+header {
+  padding: 20px;
+}
+
+/* Main Section Styles */
+.order-section {
+  padding: 50px 20px;
+  background-color: #fff;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+h2 {
+  font-size: 36px;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 30px;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+h3 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e1e1e1;
+  text-transform: uppercase;
+}
+
+#cartItemsDisplay {
+  margin-bottom: 40px;
+}
+
+#totalPriceDisplay {
+  font-size: 22px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-top: 20px;
+}
+
+/* Form Styles */
+form {
+  background-color: #fafafa;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+label {
+  font-size: 16px;
+  font-weight: 500;
+  color: #444;
+  margin-bottom: 8px;
+  display: block;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 15px;
+  font-size: 16px;
+  margin-bottom: 25px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  color: #333;
+  transition: border-color 0.3s ease;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+textarea {
+  height: 120px;
+  resize: vertical;
+}
+
+button.submit-btn {
+  width: 100%;
+  padding: 16px;
+  font-size: 18px;
+  background-color: #4CAF50;
+  border: none;
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button.submit-btn:hover {
+  background-color: #45a049;
+}
+
+/* Cart and Price Display */
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #e1e1e1;
+}
+
+.cart-item-name {
+  font-size: 18px;
+  font-weight: 500;
+  color: #555;
+}
+
+.cart-item-price {
+  font-size: 18px;
+  font-weight: 500;
+  color: #3498db;
+}
+
+.cart-item-quantity {
+  font-size: 16px;
+  color: #777;
+  font-weight: 400;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .order-section {
+    padding: 30px 15px;
+  }
+
+  h2 {
+    font-size: 28px;
+  }
+
+  h3 {
+    font-size: 20px;
+  }
+
+  form {
+    padding: 30px;
+  }
+
+  button.submit-btn {
+    padding: 14px;
+  }
+}
