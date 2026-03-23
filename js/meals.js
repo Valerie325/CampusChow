@@ -139,4 +139,9 @@ const meals = [
     image: "images/tom-brown.jpg",
     category: "Breakfast",
   },
+  
 ];  
+
+fetch("http://localhost:5000/api/food")
+  .then(res => res.json())
+  .then(data => console.log(data));
