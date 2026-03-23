@@ -10,6 +10,9 @@
   margin-bottom: 40px;
 }
 
+.main-header{
+  background-color: #e63946;
+}
 /* Contact Form */
 .contact-form {
   background-color: #fff;

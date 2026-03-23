@@ -130,6 +130,9 @@ body {
   color: #27ae60;
 }
 
+.main-header{
+  background-color: #e63946;
+}
 
 /* Cart Section Styles */
 .cart-section {

@@ -15,10 +15,12 @@ header {
 /* Main Section Styles */
 .order-section {
   padding: 50px 20px;
-  background-color: #fff;
   box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
 }
 
+.main-header{
+  background-color: #e63946;
+}
 .container {
   max-width: 1200px;
   margin: 0 auto;
