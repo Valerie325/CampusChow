@@ -155,11 +155,7 @@ function renderMeals(filteredMeals) {
         <h3 class="menu-name">${meal.name}</h3>
         <p class="menu-desc">${meal.desc}</p>
         <span class="menu-price">GHS ${meal.price}</span>
-<<<<<<< HEAD
         <button class="add-to-cart-btn" type="button">Select Options</button>
-=======
-        <button class="add-to-cart-btn">Add to Cart</button>
->>>>>>> 60b56d2371b44d95b58f47f5ed5578b237374b83
       </div>
     `;
 
