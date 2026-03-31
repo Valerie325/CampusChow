@@ -1,13 +1,101 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Message Sent - Campus Chow/title>
-  <link rel="stylesheet" href="css/message-sent.css">
+  <title>Contact Us - CampusChow</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/contact.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap">
 </head>
 <body>
+
+<header class="main-header">
+  <div class="container nav-container">
+    <!-- Logo -->
+    <div class="logo">
+      CampusChow
+    </div>
+
+    <!-- Navigation Links -->
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="menu.html">Menu</a>
+      <a href="order.html">Order</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <!-- Hamburger Button -->
+    <div class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+
+  <!-- Sidebar for Mobile View -->
+  <div class="mobile-sidebar" id="mobileSidebar">
+    <div class="close-btn" id="closeSidebar">&times;</div>
+    <a href="index.html" class="active">Home</a>
+    <a href="menu.html">Menu</a>
+    <a href="order.html">Order</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</header>
+
+  <!-- Contact Section -->
+ <section class="contact-section">
+  <div class="container">
+    <h1>Contact Us</h1>
+<img src="images/background.jpg" class="nice" alt="">
+    <!-- Contact Form -->
+    <form class="contact-form" action="" method="GET">
+  <div class="form-group">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
+  </div>
+  <div class="form-group">
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+  </div>
+  <div class="form-group">
+    <label for="message">Message:</label>
+    <textarea id="message" name="message" rows="4" required></textarea>
+  </div>
+  <button type="submit" class="submit-btn" > <link rel="stylesheet" href="message-sent.html">Send Message</button>
+</form>
+
+    <!-- Location and Map Section -->
+    <div class="location-map">
+      <h2>Our Location</h2>
+      <div id="map">
+         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26160.6303942122!2d-0.18562058243024257!3d5.6386651063089275!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfdf9c7ebaeabe93%3A0xd78257e67498c1a0!2sUniversity%20of%20Ghana!5e0!3m2!1sen!2sgh!4v1774306765810!5m2!1sen!2sgh"></iframe></iframe>
+      </div>
+    </div>
+
+  </div> 
+</section>
+
+
+
+  <!-- Footer Section -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <h2>CampusChow</h2>
+      <p>Bringing hot meals to your hostel door — fast, fresh & affordable.</p>
+    </div>
+
+    <div class="footer-links">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="order.html">Order</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
 
   <!-- Message Sent Section -->
   <section class="message-sent-section">
