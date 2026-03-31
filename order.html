@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Order Details | CampusBites</title>
+  <title>Order Details | CampusChow</title>
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/order.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
@@ -58,6 +58,17 @@
         
         <label for="address">Hostel/Location:</label>
         <textarea id="address" required placeholder="Eg: Volta Hall..."></textarea>
+
+        <label for="payment">Mode of Payment:</label>
+<select id="payment" name="payment" required>
+  <option value="cod">Cash on Delivery</option>
+  <option value="momo" disabled>Mobile Money (Coming soon)</option>
+  <option value="card" disabled>Card Payment (Coming soon)</option>
+</select>
+
+<p style="color: gray; font-size: 14px;">
+  *We only accept Cash on Delivery for now.
+</p>
         
         <button type="submit" class="submit-btn">Submit Order</button>
       </form>

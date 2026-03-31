@@ -1,64 +1,20 @@
-
-// Retrieve cart details from localStorage
-let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-let totalPrice = localStorage.getItem("totalPrice") || 0;
-
-// Display cart items and total price
-const cartItemsDisplay = document.getElementById("cartItemsDisplay");
-const totalPriceDisplay = document.getElementById("totalPriceDisplay");
-
-// Check if cart is empty or price is 0 before allowing submission
-if (cartItems.length === 0 || totalPrice == 0) {
-  alert(
-    "Your cart is empty or the total price is invalid. Please add items to your cart."
-  );
-  // Optionally, disable the form submission button if necessary
-  document.querySelector("button.submit-btn").disabled = true;
-} else {
-  // Show cart items and total price if available
-  cartItemsDisplay.innerHTML = cartItems
-    .map(
-      (item) => `
-    <p>${item.name} - GH₵${item.price}</p>
-  `
-    )
-    .join("");
-  totalPriceDisplay.innerHTML = `<h3>Total Price: GH₵${totalPrice}</h3>`;
-}
-
-// Form submission event for collecting buyer information
 document.getElementById("buyerForm").addEventListener("submit", function (e) {
   e.preventDefault();
 
-  // Collect buyer's details
   const buyerName = document.getElementById("name").value;
   const buyerPhone = document.getElementById("phone").value;
   const buyerAddress = document.getElementById("address").value;
+  const payment = document.getElementById("payment").value;
 
-  // Validate that the fields are filled before submitting
-  if (!buyerName || !buyerPhone || !buyerAddress) {
+  if (!buyerName || !buyerPhone || !buyerAddress || !payment) {
     alert("Please fill in all fields.");
-    return; // Stop form submission if fields are incomplete
+    return;
   }
 
-  // You can now handle the form submission by sending this data to a server
   alert(`Order submitted for ${buyerName}!`);
 
-  // Redirect to order-success.html after successful submission
   window.location.href = "order-success.html";
 
-  // Clear localStorage (cart and total price) after successful submission
   localStorage.removeItem("cartItems");
   localStorage.removeItem("totalPrice");
 });
-
-fetch("http://localhost:5000/api/auth/login", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
-    email: "test@mail.com",
-    password: "123456"
-  })
-})
-.then(res => res.json())
-.then(data => console.log(data));

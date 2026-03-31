@@ -161,3 +161,13 @@ button.submit-btn:hover {
     padding: 14px;
   }
 }
+
+#payment {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
