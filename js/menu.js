@@ -1,4 +1,3 @@
-
 const menuGrid = document.getElementById("menuGrid");
 const filterButtons = document.querySelectorAll(".filter-btn");
 const searchInput = document.getElementById("searchInput");
@@ -156,7 +155,11 @@ function renderMeals(filteredMeals) {
         <h3 class="menu-name">${meal.name}</h3>
         <p class="menu-desc">${meal.desc}</p>
         <span class="menu-price">GHS ${meal.price}</span>
+<<<<<<< HEAD
         <button class="add-to-cart-btn" type="button">Select Options</button>
+=======
+        <button class="add-to-cart-btn">Add to Cart</button>
+>>>>>>> 60b56d2371b44d95b58f47f5ed5578b237374b83
       </div>
     `;
 
@@ -237,29 +240,9 @@ function checkout() {
     )
     .join("\n");
 
-  const orderDetails = `
-    Order Summary:
-    -------------------
-    ${cartSummary}
-
-    Total: GHS ${total}
-
-    Proceeding to checkout...
-  `;
-
-  // Simulate the checkout process
-  alert(orderDetails);
-
-  // Save cart details to localStorage for use on order.html
+  // Save cart and total to localStorage for order.html
   localStorage.setItem("cartItems", JSON.stringify(cart));
-  localStorage.setItem("totalPrice", total);
-
-  // Clear the cart after checkout
-  cart = [];
-  updateCart();
-
-  // Optionally, clear the cart from localStorage after checkout
-  localStorage.removeItem("cart");
+  localStorage.setItem("cartTotal", total);
 
   // Redirect to order.html page
   window.location.href = "order.html";

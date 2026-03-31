@@ -1,9 +1,34 @@
-document.getElementById("buyerForm").addEventListener("submit", function (e) {
+// Get DOM elements
+const cartItemsDisplay = document.getElementById("cartItemsDisplay");
+const totalPriceDisplay = document.getElementById("totalPriceDisplay");
+const buyerForm = document.getElementById("buyerForm");
+
+// Load cart and total from localStorage
+const cart = JSON.parse(localStorage.getItem("cartItems")) || [];
+const total = localStorage.getItem("cartTotal") || 0;
+
+// Display cart items
+if (cart.length === 0) {
+  cartItemsDisplay.innerHTML = "<p>Your cart is empty!</p>";
+  totalPriceDisplay.textContent = "";
+} else {
+  const ul = document.createElement("ul");
+  cart.forEach(item => {
+    const li = document.createElement("li");
+    li.textContent = `${item.name} (x${item.quantity}) - GHS ${item.price * item.quantity}`;
+    ul.appendChild(li);
+  });
+  cartItemsDisplay.appendChild(ul);
+  totalPriceDisplay.textContent = `Total: GHS ${total}`;
+}
+
+// Handle buyer form submission
+buyerForm.addEventListener("submit", function(e) {
   e.preventDefault();
 
-  const buyerName = document.getElementById("name").value;
-  const buyerPhone = document.getElementById("phone").value;
-  const buyerAddress = document.getElementById("address").value;
+  const buyerName = document.getElementById("name").value.trim();
+  const buyerPhone = document.getElementById("phone").value.trim();
+  const buyerAddress = document.getElementById("address").value.trim();
   const payment = document.getElementById("payment").value;
 
   if (!buyerName || !buyerPhone || !buyerAddress || !payment) {
@@ -13,8 +38,11 @@ document.getElementById("buyerForm").addEventListener("submit", function (e) {
 
   alert(`Order submitted for ${buyerName}!`);
 
-  window.location.href = "order-success.html";
-
+  // Clear cart from localStorage
   localStorage.removeItem("cartItems");
-  localStorage.removeItem("totalPrice");
+  localStorage.removeItem("cartTotal");
+  localStorage.removeItem("cart");
+
+  // Redirect to order success page
+  window.location.href = "order-success.html";
 });
