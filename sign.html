@@ -321,12 +321,7 @@
         </div>
 
         <!-- Google Sign Up Button -->
-        <button type="button" class="google-signup" id="googleSignupBtn" onclick="signupWithGoogle()">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"></circle>
-            </svg>
-            Sign up with Google
-        </button>
+        <div class="google-signup" id="googleSignupBtn"></div>
 
         <!-- Login Link -->
         <div class="login-link">
@@ -340,15 +335,42 @@
     <script>
         const API_BASE_URL = 'http://localhost:5000';
 
-        // Initialize Google Sign-In
-        window.onload = function() {
-            // Initialize Google Identity Services if available
-            if (window.google && window.google.accounts) {
-                google.accounts.id.initialize({
-                    client_id: 'YOUR_GOOGLE_CLIENT_ID_HERE', // Replace with your Google Client ID
-                    callback: handleCredentialResponse
-                });
+        // If already authenticated, skip auth pages and continue from home.
+        if (localStorage.getItem('campusChowToken')) {
+            window.location.href = 'index.html';
+        }
+
+        async function initializeGoogleSignUp() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/auth/google-client-id`);
+                const data = await response.json();
+
+                if (data.clientId && window.google && window.google.accounts) {
+                    google.accounts.id.initialize({
+                        client_id: data.clientId,
+                        callback: handleCredentialResponse
+                    });
+
+                    google.accounts.id.renderButton(
+                        document.getElementById('googleSignupBtn'),
+                        {
+                            theme: 'outline',
+                            size: 'large',
+                            text: 'signup_with',
+                            width: '320'
+                        }
+                    );
+                } else {
+                    document.getElementById('googleSignupBtn').innerHTML = '<p style="color:#999; font-size:12px; text-align:center; width:100%;">Google sign-up not configured</p>';
+                }
+            } catch (error) {
+                console.error('Failed to initialize Google Sign-Up:', error);
+                document.getElementById('googleSignupBtn').innerHTML = '<p style="color:#999; font-size:12px; text-align:center; width:100%;">Google sign-up unavailable</p>';
             }
+        }
+
+        window.onload = function() {
+            initializeGoogleSignUp();
         };
 
         // Handle form submission
@@ -429,14 +451,17 @@
 
                 const data = await response.json();
 
-                if (response.ok) {
+                if (response.ok && data.success) {
+                    localStorage.setItem('campusChowToken', data.token);
+                    localStorage.setItem('campusChowUser', JSON.stringify(data.user));
+
                     // Show success message
                     document.getElementById('successMessage').style.display = 'block';
                     document.getElementById('signupForm').style.display = 'none';
                     
                     // Redirect after 2 seconds
                     setTimeout(() => {
-                        window.location.href = 'signin.html';
+                        window.location.href = 'index.html';
                     }, 2000);
                 } else {
                     showError('emailError', data.message || 'Signup failed. Please try again.');
@@ -451,8 +476,6 @@
 
         // Google Sign-In callback
         function handleCredentialResponse(response) {
-            console.log('Encoded JWT ID token:', response.credential);
-            
             // Send token to backend
             fetch(`${API_BASE_URL}/api/auth/google-signup`, {
                 method: 'POST',
@@ -466,10 +489,12 @@
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
-                    document.getElementById('successMessage').innerHTML = 'Google account linked successfully! Redirecting...';
+                    localStorage.setItem('campusChowToken', data.token);
+                    localStorage.setItem('campusChowUser', JSON.stringify(data.user));
+                    document.getElementById('successMessage').innerHTML = 'Google sign-up successful. Redirecting...';
                     document.getElementById('successMessage').style.display = 'block';
                     setTimeout(() => {
-                        window.location.href = 'signin.html';
+                        window.location.href = 'index.html';
                     }, 1500);
                 } else {
                     alert('Google signup failed: ' + data.message);
@@ -479,25 +504,6 @@
                 console.error('Error:', error);
                 alert('An error occurred during Google sign-up');
             });
-        }
-
-        // Google Sign-Up button click handler
-        function signupWithGoogle() {
-            if (window.google && window.google.accounts) {
-                // Trigger Google One Tap or redirect to consent screen
-                google.accounts.id.renderButton(
-                    document.getElementById('googleSignupBtn'),
-                    { 
-                        type: 'standard',
-                        theme: 'outline',
-                        size: 'large'
-                    }
-                );
-                // Alternatively, trigger the One Tap UI
-                google.accounts.id.prompt();
-            } else {
-                alert('Google Sign-In is not available. Please try again.');
-            }
         }
 
         // Helper functions
