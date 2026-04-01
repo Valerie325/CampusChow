@@ -202,4 +202,13 @@ router.post("/google-signup", async (req, res) => {
   }
 });
 
+// Get Google Client ID (for frontend initialization)
+router.get("/google-client-id", (req, res) => {
+  const clientId = process.env.GOOGLE_CLIENT_ID;
+  if (!clientId) {
+    return res.json({ success: false, message: "Google Client ID not configured", clientId: null });
+  }
+  res.json({ success: true, clientId });
+});
+
 module.exports = router;

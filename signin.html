@@ -14,7 +14,7 @@
 
         body {
             font-family: "Poppins", sans-serif;
-            background: radial-gradient(circle at top right, #ffe8cc, #ffd8a8 35%, #ffa94d 65%, #f76707 100%);
+            background: radial-gradient(circle at top right, #ffe8cc, #d16d6dec 35%, #ce3636 65%, #f70303 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -237,13 +237,30 @@
         const successText = document.getElementById('successText');
         const googleSigninBtn = document.getElementById('googleSigninBtn');
 
-        window.onload = function () {
-            if (window.google && window.google.accounts) {
-                google.accounts.id.initialize({
-                    client_id: 'YOUR_GOOGLE_CLIENT_ID_HERE',
-                    callback: handleGoogleCredential
-                });
+        // Fetch Google Client ID from backend
+        async function initializeGoogleSignIn() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/auth/google-client-id`);
+                const data = await response.json();
+                
+                if (data.clientId && window.google && window.google.accounts) {
+                    google.accounts.id.initialize({
+                        client_id: data.clientId,
+                        callback: handleGoogleCredential
+                    });
+                } else if (!data.clientId) {
+                    console.warn('Google Client ID not configured on server');
+                    googleSigninBtn.disabled = true;
+                    googleSigninBtn.title = 'Google Sign-In is not configured';
+                }
+            } catch (error) {
+                console.error('Failed to initialize Google Sign-In:', error);
+                googleSigninBtn.disabled = true;
             }
+        }
+
+        window.onload = function () {
+            initializeGoogleSignIn();
         };
 
         signinForm.addEventListener('submit', async function (event) {
