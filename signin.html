@@ -141,11 +141,23 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
+            min-height: 40px;
         }
 
         .google-btn:hover {
             border-color: #f76707;
             box-shadow: 0 8px 18px rgba(247, 103, 7, 0.16);
+        }
+
+        #googleSigninBtn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 18px;
+        }
+        
+        #googleSigninBtn::after {
+            content: '';
         }
 
         .error-text {
@@ -214,12 +226,7 @@
 
         <div class="divider">or</div>
 
-        <button type="button" class="google-btn" id="googleSigninBtn">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"></circle>
-            </svg>
-            Continue with Google
-        </button>
+        <div id="googleSigninBtn" class="google-btn"></div>
 
         <div class="footer-links">
             New here? <a href="sign.html">Create an account</a><br>
@@ -237,7 +244,7 @@
         const successText = document.getElementById('successText');
         const googleSigninBtn = document.getElementById('googleSigninBtn');
 
-        // Fetch Google Client ID from backend
+        // Fetch Google Client ID from backend and initialize
         async function initializeGoogleSignIn() {
             try {
                 const response = await fetch(`${API_BASE_URL}/api/auth/google-client-id`);
@@ -248,14 +255,24 @@
                         client_id: data.clientId,
                         callback: handleGoogleCredential
                     });
+                    
+                    // Render the official Google Sign-In button
+                    google.accounts.id.renderButton(
+                        document.getElementById('googleSigninBtn'),
+                        { 
+                            theme: 'outline', 
+                            size: 'large',
+                            text: 'continue_with',
+                            width: '280'
+                        }
+                    );
                 } else if (!data.clientId) {
                     console.warn('Google Client ID not configured on server');
-                    googleSigninBtn.disabled = true;
-                    googleSigninBtn.title = 'Google Sign-In is not configured';
+                    document.getElementById('googleSigninBtn').innerHTML = '<p style="color: #999; font-size: 12px;">Google Sign-In not configured</p>';
                 }
             } catch (error) {
                 console.error('Failed to initialize Google Sign-In:', error);
-                googleSigninBtn.disabled = true;
+                document.getElementById('googleSigninBtn').innerHTML = '<p style="color: #999; font-size: 12px;">Google Sign-In unavailable</p>';
             }
         }
 
@@ -308,14 +325,7 @@
             }
         });
 
-        googleSigninBtn.addEventListener('click', function () {
-            if (!window.google || !window.google.accounts) {
-                showError('Google Sign-In is not available right now.');
-                return;
-            }
 
-            google.accounts.id.prompt();
-        });
 
         function handleGoogleCredential(response) {
             clearMessages();
